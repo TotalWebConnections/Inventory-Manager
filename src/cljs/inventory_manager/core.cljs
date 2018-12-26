@@ -6,10 +6,12 @@
             [markdown.core :refer [md->html]]
             [inventory-manager.ajax :as ajax]
             [ajax.core :refer [GET POST]]
-            [secretary.core :as secretary :include-macros true])
+            [secretary.core :as secretary :include-macros true]
+            [inventory-manager.pages.about :as about-page])
   (:import goog.History))
 
 (defonce session (r/atom {:page :home}))
+(defonce items (r/atom "")) ; Holds a reference to all the current Items in the Database
 
 ; the navbar components are implemented via baking-soda [1]
 ; library that provides a ClojureScript interface for Reactstrap [2]
@@ -32,15 +34,10 @@
      [b/NavbarBrand {:href "/"} "inventory-manager"]
      [b/NavbarToggler {:on-click #(swap! expanded? not)}]
      [b/Collapse {:is-open @expanded? :navbar true}
+      [:p "Add Product"]
       [b/Nav {:class-name "mr-auto" :navbar true}
-       [nav-link "#/" "Home" :home]
+       ; [nav-link "#/" "Home" :home]
        [nav-link "#/about" "About" :about]]]]))
-
-(defn about-page []
-  [:div.container
-   [:div.row
-    [:div.col-md-12
-     [:img {:src "/img/warning_clojure.png"}]]]])
 
 (defn home-page []
   [:div.container
@@ -51,7 +48,7 @@
 
 (def pages
   {:home #'home-page
-   :about #'about-page})
+   :about #'about-page/render})
 
 (defn page []
   [(pages (:page @session))])
