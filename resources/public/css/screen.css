@@ -19,3 +19,13 @@ nav {
 	float: left;
 	width: 80%;
 }
+
+.New {
+	position: absolute;
+	top: -1000px;
+	left: 0;
+}
+
+.New.active {
+	top: 0px;
+}
