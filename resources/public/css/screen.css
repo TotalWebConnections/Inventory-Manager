@@ -23,9 +23,14 @@ nav {
 .New {
 	position: absolute;
 	top: -1000px;
-	left: 0;
+	left: calc(50% - 200px);
+	z-index: 2;
+	width: 400px;
+	height: 500px;
+	background: white;
+	border: 1px solid black;
 }
 
 .New.active {
-	top: 0px;
+	top: calc(50% - 250px);
 }

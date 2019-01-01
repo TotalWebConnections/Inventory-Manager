@@ -2,6 +2,7 @@
   (:require [ring.util.http-response :refer :all]
             [compojure.api.sweet :refer :all]
             [schema.core :as s]
+            [inventory-manager.db.core :as db]
             [compojure.api.meta :refer [restructure-param]]
             [buddy.auth.accessrules :refer [restrict]]
             [buddy.auth :refer [authenticated?]]))
@@ -27,14 +28,14 @@
              :data {:info {:version "1.0.0"
                            :title "Sample API"
                            :description "Sample Services"}}}}
-  
+
   (GET "/authenticated" []
        :auth-rules authenticated?
        :current-user user
        (ok {:user user}))
   (context "/api" []
     :tags ["thingie"]
-    
+
     (GET "/plus" []
       :return       Long
       :query-params [x :- Long, {y :- Long 1}]
@@ -46,6 +47,14 @@
       :body-params [x :- Long, y :- Long]
       :summary     "x-y with body-parameters."
       (ok (- x y)))
+
+
+    (POST "/product" []
+      :return      String
+      :body-params [contents :- s/Any]
+      :summary     "Adds a new Product"
+      (db/create-product! contents)
+      (ok (:name contents)))
 
     (GET "/times/:x/:y" []
       :return      Long

@@ -7,10 +7,29 @@
   (:import goog.History))
 
 
+(defn add-product [product]
+  (POST "/api/product"
+        {:headers {"Accept" "application/transit+json"}
+         :params {:contents @product}})
+  )
 
 (defn render [active-view]
-  (fn []
-    [:div.New {:class (:new @active-view)}
-     [:div.row
-      [:div.col-md-12
-       [:img {:src "/img/warning_clojure.png"}]]]]))
+  (let [product (atom {:name ""
+                       :sku ""
+                       :purchase_price ""
+                       :quantity ""
+                       :est_shipping_cost ""
+                       :categories ""
+    })]
+    (fn []
+      [:div.New {:class (:new @active-view)}
+        [:div.New-header
+          [:h3 "New Product"]]
+        [:div.New-body]
+          [:input {:type "text" :placeholder "name" :on-change #(swap! product conj {:name (-> % .-target .-value)})}]
+          [:input {:type "text" :placeholder "sku" :on-change #(swap! product conj {:sku (-> % .-target .-value)})}]
+          [:input {:type "text" :placeholder "Purchase Price" :on-change #(swap! product conj {:purchase_price (-> % .-target .-value)})}]
+          [:input {:type "text" :placeholder "quantity" :on-change #(swap! product conj {:quantity (-> % .-target .-value)})}]
+          [:input {:type "text" :placeholder "est_shipping_cost" :on-change #(swap! product conj {:est_shipping_cost (-> % .-target .-value)})}]
+          [:input {:type "text" :placeholder "Categories" :on-change #(swap! product conj {:categories (-> % .-target .-value)})}]
+          [:button {:on-click #(add-product product)} "Add"]])))

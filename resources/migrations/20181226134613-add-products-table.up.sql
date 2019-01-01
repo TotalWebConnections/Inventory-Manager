@@ -1,8 +1,9 @@
 CREATE TABLE products
-(id VARCHAR(20) PRIMARY KEY,
+(id int KEY NOT NULL AUTO_INCREMENT, 
  name VARCHAR(30),
  sku VARCHAR(30),
- price DECIMAL(8,2),
+ purchase_price DECIMAL(8,2),
+ list_price DECIMAL(8,2),
  quantity INTEGER(20),
  image VARCHAR(30),
  est_shipping_cost DECIMAL(8,2),

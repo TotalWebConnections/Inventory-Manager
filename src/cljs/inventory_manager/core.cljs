@@ -13,7 +13,7 @@
 
 (defonce session (r/atom {:page :home}))
 (defonce items (r/atom "")) ; Holds a reference to all the current Items in the Database
-(defonce active-view (r/atom {:new false}))
+(defonce active-view (r/atom {:new "active"}))
 
 ; the navbar components are implemented via baking-soda [1]
 ; library that provides a ClojureScript interface for Reactstrap [2]
