@@ -13,7 +13,12 @@
 
 (defonce session (r/atom {:page :home}))
 (defonce items (r/atom "")) ; Holds a reference to all the current Items in the Database
-(defonce active-view (r/atom {:new "active"}))
+(defonce active-view (r/atom {:new false}))
+
+; Handles loading the initial products
+(defn set-products [products]
+  (reset! items (js->clj (.parse js/JSON products) :keywordize-keys true )))
+(GET "/api/products" {:handler set-products})
 
 ; the navbar components are implemented via baking-soda [1]
 ; library that provides a ClojureScript interface for Reactstrap [2]
@@ -38,15 +43,25 @@
      [b/Collapse {:is-open @expanded? :navbar true}
       [:p {:on-click #(swap! active-view conj {:new "active"})} "Add Product"]
       [b/Nav {:class-name "mr-auto" :navbar true}
-       ; [nav-link "#/" "Home" :home]
+       [nav-link "#/" "Home" :home]
        [nav-link "#/about" "About" :about]]]]))
 
 (defn home-page []
   [:div.container
-   (when-let [docs (:docs @session)]
      [:div.row>div.col-sm-12
-      [:div {:dangerouslySetInnerHTML
-             {:__html (md->html docs)}}]])])
+      [:h2 "Dashboard"]
+      [:table
+        [:tr
+          [:th "Name"]
+          [:th "Purchase Date"]
+          [:th "Quantity"]
+          [:th "Status"]]
+          (doall (for [product @items]
+            [:tr
+              [:td (:name product)]
+              [:td (:purchase_date product)]
+              [:td (:quantity product)]
+              [:td (:status product)]]))]]])
 
 (defn about-page []
   (about-page/render))

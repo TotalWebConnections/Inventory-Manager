@@ -46,6 +46,12 @@
     (log/info component "started"))
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app)))
 
+; Cheshire properly handle datetimes
+; (extend-protocol cheshire.generate/JSONable
+;   java.time.LocalDateTime
+;   (to-json [dt gen]
+;   (cheshire.generate/write-string gen (str dt))))
+
 (defn -main [& args]
   (mount/start #'inventory-manager.config/env)
   (cond
@@ -63,4 +69,3 @@
       (System/exit 0))
     :else
     (start-app args)))
-  

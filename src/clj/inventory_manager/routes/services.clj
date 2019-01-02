@@ -2,10 +2,17 @@
   (:require [ring.util.http-response :refer :all]
             [compojure.api.sweet :refer :all]
             [schema.core :as s]
+            [cheshire.core :refer :all]
             [inventory-manager.db.core :as db]
             [compojure.api.meta :refer [restructure-param]]
             [buddy.auth.accessrules :refer [restrict]]
             [buddy.auth :refer [authenticated?]]))
+
+; Cheshire properly handle datetimes
+(extend-protocol cheshire.generate/JSONable
+  java.time.LocalDateTime
+    (to-json [dt gen]
+    (cheshire.generate/write-string gen (str dt))))
 
 (defn access-error [_ _]
   (unauthorized {:error "unauthorized"}))
@@ -56,11 +63,11 @@
       (db/create-product! contents)
       (ok (:name contents)))
 
-    (GET "/times/:x/:y" []
-      :return      Long
-      :path-params [x :- Long, y :- Long]
-      :summary     "x*y with path-parameters"
-      (ok (* x y)))
+    (GET "/products" []
+      :return      s/Any
+      :summary     "Return all current Products"
+      (ok (generate-string (db/get-products)))) ; We manually encode it here as it breaks on api requests,
+                                                ; theres probably a better way to do this in some sort of middleware
 
     (POST "/divide" []
       :return      Double

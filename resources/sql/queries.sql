@@ -24,5 +24,9 @@ WHERE id = :id
 -- :name create-product! :! :n
 -- :doc creates a new product
 INSERT INTO products
-(name, sku, purchase_price, quantity, est_shipping_cost, categories)
-VALUES (:name, :sku, :purchase_price, :quantity, :est_shipping_cost, :categories)
+(name, sku, purchase_price, quantity, est_shipping_cost, categories, status)
+VALUES (:name, :sku, :purchase_price, :quantity, :est_shipping_cost, :categories, "N/A")
+
+-- :name get-products :? :0
+-- :doc retrieves all products
+SELECT * FROM products

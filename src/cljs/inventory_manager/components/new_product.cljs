@@ -10,8 +10,7 @@
 (defn add-product [product]
   (POST "/api/product"
         {:headers {"Accept" "application/transit+json"}
-         :params {:contents @product}})
-  )
+         :params {:contents @product}}))
 
 (defn render [active-view]
   (let [product (atom {:name ""

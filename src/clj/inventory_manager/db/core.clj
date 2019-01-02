@@ -48,4 +48,3 @@
   java.time.ZonedDateTime
   (sql-value [v]
     (jt/sql-timestamp v)))
-
