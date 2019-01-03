@@ -63,6 +63,14 @@
       (db/create-product! contents)
       (ok (:name contents)))
 
+    (POST "/product/:id" []
+      :return      String
+      :path-params [id :- String]
+      :body-params [contents :- s/Any]
+      :summary     "Adds a new Product"
+      (db/update-product! (conj {:id id} contents))
+      (ok "Nice"))
+
     (GET "/products" []
       :return      s/Any
       :summary     "Return all current Products"

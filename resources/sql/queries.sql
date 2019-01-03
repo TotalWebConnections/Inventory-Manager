@@ -28,6 +28,12 @@ INSERT INTO products
 VALUES (:name, :sku, :purchase_price, :quantity, :est_shipping_cost, :categories, "N/A")
 
 -- :name get-products :? :*
--- :doc retrieves all products
+-- :doc retrieves all products that are not currently sold
 SELECT * FROM products
 WHERE status <> "sold"
+
+-- :name update-product! :! :n
+-- :doc updates an existing user record
+UPDATE products
+SET list_price = :list_price, est_shipping_cost = :est_shipping_cost, status = "Listed"
+WHERE id = :id

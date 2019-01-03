@@ -22,4 +22,4 @@
         [:h4 "Details"]]
       [:div.col-md-12
         [:h4 "Listing"]
-        [listing/render]]]]))
+        [listing/render (:id @current-product)]]]]))
