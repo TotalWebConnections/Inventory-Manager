@@ -8,12 +8,15 @@
             [ajax.core :refer [GET POST]]
             [secretary.core :as secretary :include-macros true]
             [inventory-manager.pages.about :as about-page]
+            [inventory-manager.pages.home :as home-page]
+            [inventory-manager.pages.product :as product-page]
             [inventory-manager.components.new-product :as new-product])
   (:import goog.History))
 
 (defonce session (r/atom {:page :home}))
 (defonce items (r/atom "")) ; Holds a reference to all the current Items in the Database
 (defonce active-view (r/atom {:new false}))
+(defonce current-product (r/atom ""))
 
 ; Handles loading the initial products
 (defn set-products [products]
@@ -46,32 +49,23 @@
        [nav-link "#/" "Home" :home]
        [nav-link "#/about" "About" :about]]]]))
 
+; TODO there's probably a better way to expose the atom to teh views
 (defn home-page []
-  [:div.container
-     [:div.row>div.col-sm-12
-      [:h2 "Dashboard"]
-      [:table
-        [:tr
-          [:th "Name"]
-          [:th "Purchase Date"]
-          [:th "Quantity"]
-          [:th "Status"]]
-          (doall (for [product @items]
-            [:tr
-              [:td (:name product)]
-              [:td (:purchase_date product)]
-              [:td (:quantity product)]
-              [:td (:status product)]]))]]])
+  (home-page/render items current-product))
 
 (defn about-page []
   (about-page/render))
+
+(defn product-page []
+  (product-page/render current-product))
 
 (defn new-product-component []
   (new-product/render active-view))
 
 (def pages
   {:home #'home-page
-   :about #'about-page})
+   :about #'about-page
+   :product #'product-page})
 
 (defn page []
   [(pages (:page @session))])
@@ -86,6 +80,9 @@
 
 (secretary/defroute "/about" []
   (swap! session assoc :page :about))
+
+(secretary/defroute "/product" []
+  (swap! session assoc :page :product))
 
 ;; -------------------------
 ;; History

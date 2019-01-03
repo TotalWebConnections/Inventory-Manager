@@ -27,6 +27,7 @@ INSERT INTO products
 (name, sku, purchase_price, quantity, est_shipping_cost, categories, status)
 VALUES (:name, :sku, :purchase_price, :quantity, :est_shipping_cost, :categories, "N/A")
 
--- :name get-products :? :0
+-- :name get-products :? :*
 -- :doc retrieves all products
 SELECT * FROM products
+WHERE status <> "sold"

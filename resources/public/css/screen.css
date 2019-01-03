@@ -35,3 +35,7 @@ nav {
 .New.active {
 	top: calc(50% - 250px);
 }
+
+.header {
+	background: gray;
+}
