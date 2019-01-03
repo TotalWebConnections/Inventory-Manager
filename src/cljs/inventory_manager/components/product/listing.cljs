@@ -11,11 +11,11 @@
         {:headers {"Accept" "application/transit+json"}
          :params {:contents @listing}}))
 
-(defn render [id]
-  (let [listing (atom {:list_price "" :est_shipping_cost ""})]
+(defn render [current-product]
+  (let [listing (atom {:list_price (:list_price @current-product) :est_shipping_cost (:est_shipping_cost @current-product)})]
     (fn []
     [:div.Listing-section
       [:p "Create Your Listing"]
-      [:input {:type "text" :placeholder "List Price" :on-change #(swap! listing conj {:list_price (-> % .-target .-value)})}]
-      [:input {:type "text" :placeholder "Estimated Shipping Cost" :on-change #(swap! listing conj {:est_shipping_cost (-> % .-target .-value)})}]
-      [:button {:on-click #(add-listing listing id)} "Add"]])))
+      [:input {:type "text" :placeholder "List Price" :default-value (:list_price @current-product) :on-change #(swap! listing conj {:list_price (-> % .-target .-value)})}]
+      [:input {:type "text" :placeholder "Estimated Shipping Cost" :default-value (:est_shipping_cost @current-product)  :on-change #(swap! listing conj {:est_shipping_cost (-> % .-target .-value)})}]
+      [:button {:on-click #(add-listing listing (:id @current-product))} "Add"]])))
