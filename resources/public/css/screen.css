@@ -29,13 +29,21 @@ nav {
 	height: 500px;
 	background: white;
 	border: 1px solid black;
-	transition: all .25s;
+	transition: all .5s;
 }
 
 .New.active {
 	top: calc(50% - 250px);
 }
 
+.New-header {
+	display: flex;
+	justify-content: space-between;
+}
+
 .header {
 	background: gray;
+	display: flex;
+	justify-content: space-between;
+	color: white;
 }

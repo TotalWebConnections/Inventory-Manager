@@ -46,7 +46,6 @@
      [b/Collapse {:is-open @expanded? :navbar true}
       [:p {:on-click #(swap! active-view conj {:new "active"})} "Add Product"]
       [b/Nav {:class-name "mr-auto" :navbar true}
-       [nav-link "#/" "Home" :home]
        [nav-link "#/about" "About" :about]]]]))
 
 ; TODO there's probably a better way to expose the atom to teh views

@@ -23,7 +23,8 @@
     (fn []
       [:div.New {:class (:new @active-view)}
         [:div.New-header
-          [:h3 "New Product"]]
+          [:h3 "New Product"]
+          [:p.closeNew {:on-click #(swap! active-view conj {:new false})} "X"]]
         [:div.New-body]
           [:input {:type "text" :placeholder "name" :on-change #(swap! product conj {:name (-> % .-target .-value)})}]
           [:input {:type "text" :placeholder "sku" :on-change #(swap! product conj {:sku (-> % .-target .-value)})}]

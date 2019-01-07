@@ -7,6 +7,7 @@
             [inventory-manager.ajax :as ajax]
             [ajax.core :refer [GET POST]]
             [inventory-manager.components.product.listing :as listing]
+            [inventory-manager.components.product.sold :as sold]
             [secretary.core :as secretary :include-macros true])
   (:import goog.History))
 
@@ -17,9 +18,13 @@
     [:div.container.Product
      [:div.row
       [:div.col-md-12.Product-header.header
-       [:h2 (:name @current-product)]]
+       [:h2 (:name @current-product)]
+       [:p {:on-click #(secretary/dispatch! "/")} "Back"]]
        [:div.col-md-12
         [:h4 "Details"]]
       [:div.col-md-12
-        [:h4 "Listing"]
-        [listing/render current-product]]]]))
+        [:h4 "Listing Details"]
+        [listing/render current-product]]
+      [:div.col-md-12
+        [:h4 "Mark As Sold"]
+        [sold/render current-product]]]]))

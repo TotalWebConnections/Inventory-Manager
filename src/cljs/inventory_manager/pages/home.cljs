@@ -11,7 +11,6 @@
 
 (defn open-product-page [current-product product]
   (reset! current-product product)
-  (js/console.log @current-product)
   (secretary/dispatch! "/product"))
 
 (defn render [items current-product]

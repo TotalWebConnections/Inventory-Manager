@@ -69,7 +69,7 @@
       :body-params [contents :- s/Any]
       :summary     "Adds a new Product"
       (db/update-product! (conj {:id id} contents))
-      (ok "Nice"))
+      (ok "Listing Updated"))
 
     (GET "/products" []
       :return      s/Any

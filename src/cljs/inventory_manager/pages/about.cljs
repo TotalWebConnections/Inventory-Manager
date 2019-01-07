@@ -10,9 +10,9 @@
   (:import goog.History))
 
 
-
 (defn render []
   [:div.container
    [:div.row
     [:div.col-md-12
-     [:img {:src "/img/warning_clojure.png"}]]]])
+     [:p {:on-click #(secretary/dispatch! "/")} "Back"]
+     [:p "Built and maintained by Total Web Connections LLC"]]]])
