@@ -9,8 +9,11 @@
             [secretary.core :as secretary :include-macros true]
             [inventory-manager.pages.about :as about-page]
             [inventory-manager.pages.home :as home-page]
+            [inventory-manager.pages.unlisted :as unlisted-page]
+            [inventory-manager.pages.sold :as sold-page]
             [inventory-manager.pages.product :as product-page]
-            [inventory-manager.components.new-product :as new-product])
+            [inventory-manager.components.new-product :as new-product]
+            [inventory-manager.components.sidebar :as sidebar])
   (:import goog.History))
 
 (defonce session (r/atom {:page :home}))
@@ -52,6 +55,12 @@
 (defn home-page []
   (home-page/render items current-product))
 
+(defn unlisted-page []
+  (unlisted-page/render items current-product))
+
+(defn sold-page []
+  (sold-page/render items current-product))
+
 (defn about-page []
   (about-page/render))
 
@@ -63,6 +72,8 @@
 
 (def pages
   {:home #'home-page
+   :unlisted #'unlisted-page
+   :sold #'sold-page
    :about #'about-page
    :product #'product-page})
 
@@ -76,6 +87,12 @@
 
 (secretary/defroute "/" []
   (swap! session assoc :page :home))
+
+(secretary/defroute "/unlisted" []
+  (swap! session assoc :page :unlisted))
+
+(secretary/defroute "/sold" []
+  (swap! session assoc :page :sold))
 
 (secretary/defroute "/about" []
   (swap! session assoc :page :about))
@@ -110,7 +127,8 @@
 (defn mount-components []
   (r/render [#'new-product-component] (.getElementById js/document "offscreen-content"))
   (r/render [#'navbar] (.getElementById js/document "navbar"))
-  (r/render [#'page] (.getElementById js/document "app")))
+  (r/render [#'page] (.getElementById js/document "app"))
+  (r/render [#'sidebar/render] (.getElementById js/document "sidebar")))
 
 (defn init! []
   (ajax/load-interceptors!)

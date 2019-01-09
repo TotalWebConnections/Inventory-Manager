@@ -67,9 +67,17 @@
       :return      String
       :path-params [id :- String]
       :body-params [contents :- s/Any]
-      :summary     "Adds a new Product"
+      :summary     "Updates a product listing"
       (db/update-product! (conj {:id id} contents))
       (ok "Listing Updated"))
+
+    (POST "/product/:id/sold" []
+      :return      String
+      :path-params [id :- String]
+      :body-params [contents :- s/Any]
+      :summary     "Marks a product as sold"
+      (db/update-product-sold (conj {:id id} contents))
+      (ok "Listing Marked As Sold"))
 
     (GET "/products" []
       :return      s/Any

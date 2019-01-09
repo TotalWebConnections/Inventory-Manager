@@ -1,4 +1,4 @@
-(ns inventory-manager.pages.home
+(ns inventory-manager.pages.unlisted
   (:require [baking-soda.core :as b]
             [reagent.core :as r]
             [goog.events :as events]
@@ -14,9 +14,9 @@
   (secretary/dispatch! "/product"))
 
 (defn render [items current-product]
-  [:div.container
+  [:div.Unlisted
     [:div.row>div.col-sm-12
-      [:h2 "Dashboard"]
+      [:h2 "Unlisted Items"]
       [:table
         [:tr
           [:th "Name"]
@@ -24,7 +24,7 @@
           [:th "Quantity"]
           [:th "Status"]]
         (doall (for [product @items]
-          (if (= "Listed" (:status product))
+          (if (= "N/A" (:status product))
             (do
               [:tr {:on-click #(open-product-page current-product product)}
                 [:td (:name product)]

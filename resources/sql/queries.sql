@@ -30,10 +30,15 @@ VALUES (:name, :sku, :purchase_price, :quantity, :est_shipping_cost, :categories
 -- :name get-products :? :*
 -- :doc retrieves all products that are not currently sold
 SELECT * FROM products
-WHERE status <> "sold"
 
 -- :name update-product! :! :n
 -- :doc updates an existing user record
 UPDATE products
-SET list_price = :list_price, est_shipping_cost = :est_shipping_cost, status = "Listed"
+SET list_price = :list_price, est_shipping_cost = :est_shipping_cost, listing_fees = :listing_fees, list_date = now(), status = "Listed"
+WHERE id = :id
+
+-- :name update-product-sold :! :n
+-- :doc updates an existing user that is sold
+UPDATE products
+SET sold_price = :sold_price, sold_date = now(), status = "Sold"
 WHERE id = :id

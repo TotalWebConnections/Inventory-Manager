@@ -14,5 +14,5 @@
   [:div.container
    [:div.row
     [:div.col-md-12
-     [:p {:on-click #(secretary/dispatch! "/")} "Back"]
+     [:p [:a {:href "#/"} "Back"]]
      [:p "Built and maintained by Total Web Connections LLC"]]]])
