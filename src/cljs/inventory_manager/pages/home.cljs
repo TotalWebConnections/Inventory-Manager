@@ -14,9 +14,9 @@
   (secretary/dispatch! "/product"))
 
 (defn render [items current-product]
-  [:div.container
+  [:div.container.card
     [:div.row>div.col-sm-12
-      [:h2 "Dashboard"]
+      [:h2 "Active Items"]
       [:table
         [:tr
           [:th "Name"]

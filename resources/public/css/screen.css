@@ -2,6 +2,9 @@ html,
 body {
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     height: 100%;
+		background: #f0f0f0;
+		font-size: 16px;
+		color: #5f5b5a;
 }
 nav {
     /* margin-bottom: 20px; */
@@ -10,14 +13,23 @@ nav {
 
 #sidebar {
 	float: left;
-	width: 20%;
-	background: black;
+	width: 15%;
+	background: #ffffff;
 	color: white;
 	height: 100%;
+	border-right: 2px solid #eeeeee;
 }
 #app {
 	float: left;
-	width: 80%;
+	width: 85%;
+	padding: 15px;
+}
+
+
+.card {
+	background: #ffffff;
+	padding: 16px;
+	border: 1px solid #e2e2e2;
 }
 
 .New {
@@ -42,14 +54,40 @@ nav {
 }
 
 .header {
-	background: gray;
 	display: flex;
 	justify-content: space-between;
-	color: white;
+}
+
+.Product-header {
+	border-bottom: 2px solid #f4f3f3;
+}
+
+.Product-content {
+	margin-top: 24px;
 }
 
 
 .Sidebar ul{
 	list-style: none;
 	margin: 0;
+}
+
+table {
+	width: 100%;
+}
+
+td, th {
+	padding: 5px;
+}
+
+tr {
+	padding: 10px 5px;
+	border-bottom: 1px solid #f4f3f3;
+	height: 50px;
+	cursor: pointer;
+	transition: .25s;
+}
+
+tr:hover {
+	background: #f4f3f3;
 }

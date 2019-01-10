@@ -44,7 +44,7 @@
     [b/Navbar {:light true
                :class-name "navbar-dark bg-primary"
                :expand "md"}
-     [b/NavbarBrand {:href "/"} "inventory-manager"]
+     [b/NavbarBrand {:href "/"} "Inventory Manager"]
      [b/NavbarToggler {:on-click #(swap! expanded? not)}]
      [b/Collapse {:is-open @expanded? :navbar true}
       [:p {:on-click #(swap! active-view conj {:new "active"})} "Add Product"]

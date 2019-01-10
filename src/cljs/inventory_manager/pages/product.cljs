@@ -15,16 +15,21 @@
 
 (defn render [current-product]
   (fn []
-    [:div.container.Product
-     [:div.row
+    [:div.container.Product.card
+     [:div
       [:div.col-md-12.Product-header.header
        [:h2 (:name @current-product)]
        [:p {:on-click #(secretary/dispatch! "/")} "Back"]]
-       [:div.col-md-12
+       [:div.col-md-12.Product-content
         [:h4 "Details"]]
-      [:div.col-md-12
-        [:h4 "Listing Details"]
-        [listing/render current-product]]
-      [:div.col-md-12
-        [:h4 "Mark As Sold"]
-        [sold/render current-product]]]]))
+      (if (not= "Sold" (:status @current-product))
+        (do
+          [:div.col-md-12
+            [:h4 "Listing Details"]
+            [listing/render current-product]]))
+      (if (and (not= "Sold" (:status @current-product)) (not= "N/A" (:status @current-product)))
+        (do
+          [:div.col-md-12
+            [:h4 "Mark As Sold"]
+            [sold/render current-product]]))
+        ]]))

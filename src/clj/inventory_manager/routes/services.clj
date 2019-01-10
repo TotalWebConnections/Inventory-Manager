@@ -43,19 +43,6 @@
   (context "/api" []
     :tags ["thingie"]
 
-    (GET "/plus" []
-      :return       Long
-      :query-params [x :- Long, {y :- Long 1}]
-      :summary      "x+y with query-parameters. y defaults to 1."
-      (ok (+ x y)))
-
-    (POST "/minus" []
-      :return      Long
-      :body-params [x :- Long, y :- Long]
-      :summary     "x-y with body-parameters."
-      (ok (- x y)))
-
-
     (POST "/product" []
       :return      String
       :body-params [contents :- s/Any]
@@ -82,17 +69,5 @@
     (GET "/products" []
       :return      s/Any
       :summary     "Return all current Products"
-      (ok (generate-string (db/get-products)))) ; We manually encode it here as it breaks on api requests,
+      (ok (generate-string (db/get-products)))))) ; We manually encode it here as it breaks on api requests,
                                                 ; theres probably a better way to do this in some sort of middleware
-
-    (POST "/divide" []
-      :return      Double
-      :form-params [x :- Long, y :- Long]
-      :summary     "x/y with form-parameters"
-      (ok (/ x y)))
-
-    (GET "/power" []
-      :return      Long
-      :header-params [x :- Long, y :- Long]
-      :summary     "x^y with header-parameters"
-      (ok (long (Math/pow x y))))))

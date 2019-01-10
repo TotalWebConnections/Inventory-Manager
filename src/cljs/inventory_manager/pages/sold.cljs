@@ -14,15 +14,16 @@
   (secretary/dispatch! "/product"))
 
 (defn render [items current-product]
-  [:div.Sold
+  [:div.Sold.card
     [:div.row>div.col-sm-12
-      [:h2 "Unlisted Items"]
+      [:h2 "Sold Items"]
       [:table
         [:tr
           [:th "Name"]
           [:th "Purchase Date"]
           [:th "Quantity"]
-          [:th "Status"]]
+          [:th "Status"]
+          [:th "Profit"]]
         (doall (for [product @items]
           (if (= "Sold" (:status product))
             (do
@@ -30,4 +31,9 @@
                 [:td (:name product)]
                 [:td (:purchase_date product)]
                 [:td (:quantity product)]
-                [:td (:status product)]]))))]]])
+                [:td (:status product)]
+                [:td (-
+                      (:sold_price product)
+                      (:purchase_price product)
+                      (:listing_fees product)
+                      (:actual_shipping_cost product))]]))))]]])

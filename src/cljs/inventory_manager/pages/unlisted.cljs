@@ -14,7 +14,7 @@
   (secretary/dispatch! "/product"))
 
 (defn render [items current-product]
-  [:div.Unlisted
+  [:div.Unlisted.card
     [:div.row>div.col-sm-12
       [:h2 "Unlisted Items"]
       [:table
