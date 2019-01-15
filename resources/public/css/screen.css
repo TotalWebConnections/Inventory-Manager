@@ -67,9 +67,16 @@ nav {
 }
 
 
-.Sidebar ul{
+.Sidebar ul.Sidebar-links{
 	list-style: none;
 	margin: 0;
+	padding: 0;
+}
+
+.Sidebar ul li {
+	padding: 10px 0;
+	border-bottom: 1px solid #f4f3f3;
+	text-align: center;
 }
 
 table {

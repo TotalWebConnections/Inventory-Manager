@@ -48,7 +48,7 @@
       :body-params [contents :- s/Any]
       :summary     "Adds a new Product"
       (db/create-product! contents)
-      (ok (:name contents)))
+      (ok (generate-string (db/get-products))))
 
     (POST "/product/:id" []
       :return      String

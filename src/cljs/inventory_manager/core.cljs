@@ -68,7 +68,7 @@
   (product-page/render current-product))
 
 (defn new-product-component []
-  (new-product/render active-view))
+  (new-product/render active-view items))
 
 (def pages
   {:home #'home-page

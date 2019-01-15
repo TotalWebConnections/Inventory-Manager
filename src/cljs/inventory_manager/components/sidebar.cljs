@@ -10,7 +10,7 @@
 
 (defn render [active-view]
   [:div.Sidebar
-    [:ul
+    [:ul.Sidebar-links
       [:li [:a {:href "#/"} "Active Listings"]]
       [:li [:a {:href "#/unlisted"} "Unlisted Items"]]
       [:li [:a {:href "#/sold"} "Sold Listings"]]
