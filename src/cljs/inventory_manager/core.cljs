@@ -11,20 +11,25 @@
             [inventory-manager.pages.home :as home-page]
             [inventory-manager.pages.unlisted :as unlisted-page]
             [inventory-manager.pages.sold :as sold-page]
+            [inventory-manager.state :refer [items update-product-list]]
             [inventory-manager.pages.product :as product-page]
             [inventory-manager.components.new-product :as new-product]
             [inventory-manager.components.sidebar :as sidebar])
   (:import goog.History))
 
 (defonce session (r/atom {:page :home}))
-(defonce items (r/atom "")) ; Holds a reference to all the current Items in the Database
 (defonce active-view (r/atom {:new false}))
 (defonce current-product (r/atom ""))
 
+(defn hide-new-product []
+  (swap! active-view conj {:new false}))
+
+
 ; Handles loading the initial products
-(defn set-products [products]
-  (reset! items (js->clj (.parse js/JSON products) :keywordize-keys true )))
-(GET "/api/products" {:handler set-products})
+(update-product-list)
+; (defn set-products [products]
+;   (reset! items (js->clj (.parse js/JSON products) :keywordize-keys true )))
+; (GET "/api/products" {:handler set-products})
 
 ; the navbar components are implemented via baking-soda [1]
 ; library that provides a ClojureScript interface for Reactstrap [2]
@@ -68,7 +73,7 @@
   (product-page/render current-product))
 
 (defn new-product-component []
-  (new-product/render active-view items))
+  (new-product/render active-view))
 
 (def pages
   {:home #'home-page

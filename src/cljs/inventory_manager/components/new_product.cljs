@@ -3,23 +3,21 @@
             [goog.events :as events]
             [goog.history.EventType :as HistoryEventType]
             [inventory-manager.ajax :as ajax]
+            [inventory-manager.state :refer [update-product-list]]
             [ajax.core :refer [GET POST]])
   (:import goog.History))
 
 (defn hide-new-product [active-view]
   (swap! active-view conj {:new false}))
 
-;TODO we should just return the new qery here to get the items
-(defn add-product-to-atom [items product]
-  (swap! items conj (hash-map product)))
-
-(defn add-product [product items active-view]
+(defn add-product [product active-view]
   (POST "/api/product"
         {:headers {"Accept" "application/transit+json"}
          :params {:contents @product}
-         :success (do (add-product-to-atom items @product) (hide-new-product active-view))}))
+         :handler update-product-list})
+         (hide-new-product active-view))
 
-(defn render [active-view items]
+(defn render [active-view]
   (let [product (atom {:name ""
                        :sku ""
                        :purchase_price ""
@@ -39,4 +37,4 @@
           [:input {:type "text" :placeholder "quantity" :on-change #(swap! product conj {:quantity (-> % .-target .-value)})}]
           [:input {:type "text" :placeholder "est_shipping_cost" :on-change #(swap! product conj {:est_shipping_cost (-> % .-target .-value)})}]
           [:input {:type "text" :placeholder "Categories" :on-change #(swap! product conj {:categories (-> % .-target .-value)})}]
-          [:button {:on-click #(add-product product items active-view)} "Add"]])))
+          [:button {:on-click #(add-product product active-view)} "Add"]])))
