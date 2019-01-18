@@ -16,3 +16,9 @@
 
 (defn update-product-list []
   (GET "/api/products" {:handler set-products}))
+
+
+(defn handle-state-change [action]
+  (print "test")
+  (let [fn-var ((ns-publics 'inventory-manager.state) (symbol action))]
+               (fn-var)))
