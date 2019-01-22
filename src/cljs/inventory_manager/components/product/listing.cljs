@@ -19,7 +19,7 @@
                   :listing_fees (:listing_fees @current-product)})]
     (fn []
       [:div.Listing-section
-        [:p "Create Your Or Edit Listing"]
+        [:p "Create Or Edit Your Listing"]
         [:input {:type "text" :placeholder "List Price" :default-value (:list_price @current-product) :on-change #(swap! listing conj {:list_price (-> % .-target .-value)})}]
         [:input {:type "text" :placeholder "Estimated Shipping Cost" :default-value (:est_shipping_cost @current-product)  :on-change #(swap! listing conj {:est_shipping_cost (-> % .-target .-value)})}]
         [:input {:type "text" :placeholder "Listing Fees" :default-value (:listing_fees @current-product)  :on-change #(swap! listing conj {:listing_fees (-> % .-target .-value)})}]

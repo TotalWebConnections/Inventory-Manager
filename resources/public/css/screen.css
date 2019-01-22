@@ -25,6 +25,20 @@ nav {
 	padding: 15px;
 }
 
+button {
+	cursor: pointer;
+	border: 1px solid #66c43c;
+	color: white;
+	border-radius: 3px;
+	background: #66c43c;
+	transition: all .25s;
+}
+
+button:hover {
+	background: #539e32;
+	border: 1px solid #539e32;
+}
+
 
 .card {
 	background: #ffffff;
