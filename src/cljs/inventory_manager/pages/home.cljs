@@ -24,7 +24,7 @@
           [:th "Quantity"]
           [:th "Status"]]
         (doall (for [product @items]
-          (if (= "Listed" (:status product))
+          (if (or (= "Listed" (:status product)) (= "Partial" (:status product))) 
             (do
               [:tr {:on-click #(open-product-page current-product product)}
                 [:td (:name product)]

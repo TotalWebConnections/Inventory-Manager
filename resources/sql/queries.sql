@@ -31,6 +31,11 @@ VALUES (:name, :sku, :purchase_price, :quantity, :est_shipping_cost, :categories
 -- :doc retrieves all products that are not currently sold
 SELECT * FROM products
 
+-- :name get-single-product :? :*
+-- :doc retrieves a specific product based on the ID
+SELECT * FROM products
+WHERE id = :id
+
 -- :name update-product! :! :n
 -- :doc updates an existing user record
 UPDATE products
@@ -40,5 +45,12 @@ WHERE id = :id
 -- :name update-product-sold :! :n
 -- :doc updates an existing user that is sold
 UPDATE products
-SET sold_price = :sold_price, sold_date = now(), status = "Sold"
+SET sold_price = :sold_price, sold_amount = :sold_amount, sold_date = now(), status = "Sold"
+WHERE id = :id
+
+
+-- :name update-product-sold-partial :! :n
+-- :doc updates an existing user that is sold
+UPDATE products
+SET sold_price = :sold_price, sold_amount = :sold_amount, sold_date = now(), status = "Partial"
 WHERE id = :id
