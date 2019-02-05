@@ -58,17 +58,12 @@
       (db/update-product! (conj {:id id} contents))
       (ok "Listing Updated"))
 
-    ; First we have to pull the item to see if it has multiple
-    ; If not, we can just go as normal
-    ; If so, we need to check and increment sold_amount by one, and add the price to the sold
-    ; We also need to adjust the status to either partially sold, or sold depending on the total sold
     (POST "/product/:id/sold" []
       :return      String
       :path-params [id :- String]
       :body-params [contents :- s/Any]
       :summary     "Marks a product as sold"
       (let [product (first (db/get-single-product {:id id}))]
-
         (if (or (= (:quantity product) 1)  (= (+ (:sold_amount product) 1) (:quantity product)) ) ;equal to one or just one off the total
           (db/update-product-sold {:id id :sold_amount (+ (:sold_amount product) 1)
             :sold_price (+ (bigdec (:sold_price contents)) (:sold_price product))})

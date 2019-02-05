@@ -3,14 +3,19 @@
             [goog.events :as events]
             [goog.history.EventType :as HistoryEventType]
             [inventory-manager.ajax :as ajax]
+            [inventory-manager.state :refer [handle-state-change]]
             [ajax.core :refer [GET POST]])
   (:import goog.History))
+
+(defn product-add-success []
+  (handle-state-change "update-product-list")
+  (js/alert "Product Updated!"))
 
 (defn add-listing [listing id]
   (POST  (str "/api/product/" id)
         {:headers {"Accept" "application/transit+json"}
-         :params {:contents @listing}})
-         :success (js/alert "Product Updated!"))
+         :params {:contents @listing}
+         :handler product-add-success}))
 
 (defn render [current-product]
   (let [listing (atom {

@@ -3,14 +3,19 @@
             [goog.events :as events]
             [goog.history.EventType :as HistoryEventType]
             [inventory-manager.ajax :as ajax]
+            [inventory-manager.state :refer [handle-state-change]]
             [ajax.core :refer [GET POST]])
   (:import goog.History))
+
+(defn product-add-success []
+  (handle-state-change "update-product-list")
+  (js/alert "Product Marked As Sold!"))
 
 (defn sell-item [sold-price id]
   (POST  (str "/api/product/" id "/sold")
         {:headers {"Accept" "application/transit+json"}
-         :params {:contents {:sold_price @sold-price}}})
-         :success (js/alert "Product Marked As Sold!"))
+         :params {:contents {:sold_price @sold-price}}
+         :handler product-add-success}))
 
 (defn render [current-product]
   (let [sold-price (atom "")]
