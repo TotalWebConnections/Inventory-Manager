@@ -24,10 +24,10 @@
           [:th "Quantity"]
           [:th "Status"]]
         (doall (for [product @items]
-          (if (or (= "Listed" (:status product)) (= "Partial" (:status product))) 
-            (do
+          (if (or (= "Listed" (:status product)) (= "Partial" (:status product)))
+            (let [itemDate (js/Date. (:purchase_date product))]
               [:tr {:on-click #(open-product-page current-product product)}
                 [:td (:name product)]
-                [:td (:purchase_date product)]
+                [:td (str (+ (.getMonth itemDate) 1) "/" (.getDate itemDate) "/" (.getFullYear itemDate))]
                 [:td (:quantity product)]
                 [:td (:status product)]]))))]]])

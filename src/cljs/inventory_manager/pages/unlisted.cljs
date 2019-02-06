@@ -25,9 +25,9 @@
           [:th "Status"]]
         (doall (for [product @items]
           (if (= "N/A" (:status product))
-            (do
+            (let [itemDate (js/Date. (:purchase_date product))]
               [:tr {:on-click #(open-product-page current-product product)}
                 [:td (:name product)]
-                [:td (:purchase_date product)]
+                [:td (str (+ (.getMonth itemDate) 1) "/" (.getDate itemDate) "/" (.getFullYear itemDate))]
                 [:td (:quantity product)]
                 [:td (:status product)]]))))]]])
