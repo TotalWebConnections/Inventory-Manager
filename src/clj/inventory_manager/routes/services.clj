@@ -66,9 +66,11 @@
       (let [product (first (db/get-single-product {:id id}))]
         (if (or (= (:quantity product) 1)  (= (+ (:sold_amount product) 1) (:quantity product)) ) ;equal to one or just one off the total
           (db/update-product-sold {:id id :sold_amount (+ (:sold_amount product) 1)
-            :sold_price (+ (bigdec (:sold_price contents)) (:sold_price product))})
+            :sold_price (+ (bigdec (:sold_price contents)) (:sold_price product))
+            :shipping_cost (:shipping_cost contents)})
           (db/update-product-sold-partial {:id id :sold_amount (+ (:sold_amount product) 1)
-            :sold_price (+ (bigdec (:sold_price contents)) (:sold_price product))})) ; end if
+            :sold_price (+ (bigdec (:sold_price contents)) (:sold_price product))
+            :shipping_cost (:shipping_cost contents)})) ; end if
         (ok "Product Marked as Sold")))
 
 

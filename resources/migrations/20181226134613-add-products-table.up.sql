@@ -6,6 +6,7 @@ CREATE TABLE products
  list_price DECIMAL(8,2),
  listing_fees DECIMAL(8,2),
  sold_price DECIMAL (8,2) DEFAULT 0.00,
+ shipping_cost DECIMAL (8,2) DEFAULT 0.00,
  sold_amount INTEGER(20) DEFAULT 0,
  quantity INTEGER(20),
  image VARCHAR(30),

@@ -20,13 +20,13 @@
       [:table
         [:tr
           [:th "Name"]
-          [:th "Purchase Date"]
+          [:th "Sold Date"]
           [:th "Quantity"]
           [:th "Status"]
           [:th "Profit"]]
         (doall (for [product @items]
           (if (= "Sold" (:status product))
-            (let [itemDate (js/Date. (:purchase_date product))]
+            (let [itemDate (js/Date. (:sold_date product))]
               [:tr {:on-click #(open-product-page current-product product)}
                 [:td (:name product)]
                 [:td (str (+ (.getMonth itemDate) 1) "/" (.getDate itemDate) "/" (.getFullYear itemDate))]

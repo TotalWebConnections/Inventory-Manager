@@ -45,12 +45,12 @@ WHERE id = :id
 -- :name update-product-sold :! :n
 -- :doc updates an existing user that is sold
 UPDATE products
-SET sold_price = :sold_price, sold_amount = :sold_amount, sold_date = now(), status = "Sold"
+SET sold_price = :sold_price, sold_amount = :sold_amount, shipping_cost = :shipping_cost, sold_date = now(), status = "Sold"
 WHERE id = :id
 
 
 -- :name update-product-sold-partial :! :n
 -- :doc updates an existing user that is sold
 UPDATE products
-SET sold_price = :sold_price, sold_amount = :sold_amount, sold_date = now(), status = "Partial"
+SET sold_price = :sold_price, sold_amount = :sold_amount, shipping_cost = :shipping_cost, sold_date = now(), status = "Partial"
 WHERE id = :id
