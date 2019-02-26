@@ -20,8 +20,7 @@
       [:div.col-md-12.Product-header.header
        [:h2 (:name @current-product)]
        [:p {:on-click #(secretary/dispatch! "/")} "Back"]]
-       [:div.col-md-12.Product-content
-        [:h4 "Details"]]
+       [:div.col-md-12.Product-content]
       (if (not= "Sold" (:status @current-product))
         (do
           [:div.col-md-12
@@ -32,4 +31,18 @@
           [:div.col-md-12
             [:h4 "Mark As Sold"]
             [sold/render current-product]]))
+        (if (= "Sold" (:status @current-product))
+          (do
+            [:div.col-md-12
+              [:h4 (str "Sold On: " (:sold_date @current-product))]
+              [:p (str "Purchase Price: " (:purchase_price  @current-product))]
+              [:p (str "Sold For: " (:sold_price @current-product))]
+              [:p (str "Shipping Cost: " (:shipping_cost @current-product))]
+              [:p (str "Fees: " (:listing_fees  @current-product))]
+              [:p (str "Sold Amount: " (:sold_amount @current-product))]
+              [:p (str "Profit: " (* (-
+                    (:sold_price @current-product)
+                    (:purchase_price @current-product)
+                    (:listing_fees @current-product)
+                    (:actual_shipping_cost @current-product)) (:sold_amount @current-product)))]]))
         ]]))
